@@ -82,11 +82,10 @@ class TradingDay:
     @staticmethod
     def trading_days_between_date(cur_date, target_date):
         """
+        cur_date, target_date : int 타입
         cur_date 가 target_date 로 부터 몇 거래일인지 리턴해줌
         :return:
         """
-        cur_date = int(cur_date)
-        target_date = int(target_date)
         cur_date = datetime.datetime.strptime(str(cur_date), '%Y%m%d').date()
         target_date = datetime.datetime.strptime(str(target_date), '%Y%m%d').date()
         cur_date_index = TradingDay.trading_days_list.index(cur_date)

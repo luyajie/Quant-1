@@ -51,7 +51,7 @@ class TradingDay:
     def __init__(self, target):
         self.target_date = datetime.datetime.strptime(str(target), '%Y%m%d').date()
         if self.target_date not in TradingDay.trading_days_list:
-            raise ValueError(self.target_date, '는 휴장일')
+            raise ValueError(target, '는 휴장일')
 
     def get_target_date(self):
         return self.target_date

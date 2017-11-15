@@ -23,7 +23,7 @@ def get_close_date_list():
     return tuple(close_date_list)
 
 
-def get_trading_days_list(min_year=2010, size=5000):
+def get_trading_days_list(min_year=2010, size=4000):
     # 임의로 2010년 부터 시작함
     base = datetime.date(min_year, 1, 1)
     date_list = [base + datetime.timedelta(days=x) for x in range(0, size)]
@@ -38,9 +38,8 @@ def get_trading_days_list(min_year=2010, size=5000):
     close_date_list = get_close_date_list()
     close_date_time_list = []
     for close_date in close_date_list:
-        close_date_time_list.append(datetime.datetime.strptime(close_date, '%Y%m%d'))
-
-    trading_days_list = list(set(week_days_list) - set(close_date_list))
+        close_date_time_list.append(datetime.datetime.strptime(close_date, '%Y%m%d').date())
+    trading_days_list = list(set(week_days_list) - set(close_date_time_list))
     trading_days_list.sort()
     return tuple(trading_days_list)
 

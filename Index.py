@@ -60,6 +60,13 @@ class IndexBASE(metaclass=ABCMeta):
                 continue
             ratio = self.price_table.loc[:, ['D+0', 'D+%d' % i]].apply(IndexBASE.get_ratio_for_data_frame, 1)
             self.performance_table.loc[:, 'D+%d' % i] = ratio
+            
+    @abstractmethod
+    def get_return(self):
+        """
+        :return: 수익률 리스트
+        """
+        pass
 
     @staticmethod
     @abstractmethod

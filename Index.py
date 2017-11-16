@@ -14,8 +14,9 @@ class IndexBASE(metaclass=ABCMeta):
         ex) 20170104
         """
         self.base_date = TradingDay(base_date)
-        self.code_list = code_list
-        self.weight_list = weight_list
+        # 종목리스트와 비중리스트는 변하지 않음
+        self.code_list = tuple(code_list)
+        self.weight_list = tuple(weight_list)
         if len(self.code_list) != len(self.weight_list):
             # 코드리스트와 비중리스트의 개수가 다른 경우
             raise ValueError
@@ -55,12 +56,13 @@ class IndexBASE(metaclass=ABCMeta):
             self.price_table.loc[code, :] = data.values
             self.performance_table.loc[code, 'D+0'] = 0
 
+        # 종목별 기준일 대비 수익률
         for i in range(delta+1):
             if i == 0:
                 continue
             ratio = self.price_table.loc[:, ['D+0', 'D+%d' % i]].apply(IndexBASE.get_ratio_for_data_frame, 1)
             self.performance_table.loc[:, 'D+%d' % i] = ratio
-            
+
     @abstractmethod
     def get_return(self):
         """
@@ -84,3 +86,4 @@ class IndexBASE(metaclass=ABCMeta):
         except Exception:
             return np.NaN
         return result * 100
+

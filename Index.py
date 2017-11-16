@@ -20,12 +20,9 @@ class IndexBASE(metaclass=ABCMeta):
         if len(self.code_list) != len(self.weight_list):
             # 코드리스트와 비중리스트의 개수가 다른 경우
             raise ValueError
-        total = 0
-        for weight in self.weight_list:
-            total += weight
-        if total > 1.001:
-            # 1이여도 1.000000000000000002 나옴...
-            raise ValueError('%d' % total)
+            
+        if sum(self.weight_list) != 1:
+            raise ValueError('%d' % sum(self.weight_list))
 
         # 가격 데이터를 저장할 DataFrame
         self.price_table = pd.DataFrame(columns=('code', ))

@@ -2,7 +2,7 @@ import sys
 import datetime
 
 
-CLOSE_DAY_FILE = r''
+CLOSE_DAY_FILE = r'close_day.txt'
 
 
 def get_close_date_list():

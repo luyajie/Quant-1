@@ -147,3 +147,22 @@ class TradingDay:
             for date in trading_days:
                 if date < second_thursday:
                     return date
+
+    @staticmethod
+    def magnet(date, flag):
+        """
+        flag:: before:0, after:1
+        """
+        date = datetime.datetime.strptime(str(date), '%Y%m%d').date()
+        idx = 0
+        for trading_day in TradingDay.trading_days_list:
+            if date <= trading_day:
+                break
+            idx += 1
+        if date == TradingDay.trading_days_list[idx]:
+            return TradingDay.trading_days_list[idx]
+        else:
+            if flag == 0:
+                return TradingDay.trading_days_list[idx-1]
+            else:
+                return TradingDay.trading_days_list[idx]
